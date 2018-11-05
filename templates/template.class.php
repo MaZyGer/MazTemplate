@@ -2,6 +2,8 @@
     
     class Template {
 
+        public static $templateInstance = null;
+        
         private $assignedFiles = array();
         private $assignedVars = array();
         private $assignedPageVars = array();
@@ -15,6 +17,7 @@
         function __construct($pathToBase = '', $language = "en") 
         
         {
+            $this::$templateInstance = $this;
             if(!empty($pathToBase))
             {
                 if(file_exists($pathToBase))
@@ -29,6 +32,10 @@
             
             $this->lang = strtoupper($language);
             //echo $this->tpl;
+        }
+        
+        static function instance() {
+            return Template::$templateInstance;
         }
         
         //Assign a file
@@ -53,7 +60,7 @@
             }
         }
         
-        function writeLanguageVar($var, $lang, $replace) {
+        function writeLocalizationVar($var, $lang, $replace) {
             if(!empty($var) && !empty($lang) && !empty($replace))
             {
                 // little hacky. We save the lang behind the var and we will cut it out later
@@ -72,7 +79,7 @@
         }
         
         // data is = array('DE' => "bla")
-        function writeMultipleLanguageVar($var, $data) {
+        function writeMultipleLocalizationVar($var, $data) {
             if(!empty($var) && !empty($data))
             {
                 // little hacky. We save the lang behind the var and we will cut it out later
@@ -84,6 +91,7 @@
                 } else {
                     $this->languageVar[$upperVar] = array_merge($this->languageVar[$upperVar], $data);
                 }
+                
             }    
         }
         
