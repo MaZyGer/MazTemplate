@@ -1,3 +1,5 @@
+Newest version uses now singleton. It is not like the image now. May will be updated near feature.
+
 # MazTemplate
 Simple Template System for PHP where you want to have less php and more html files.
 
